@@ -1,0 +1,94 @@
+import java.util.Scanner;
+
+public class Marks {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter number of students: ");
+        int n = scanner.nextInt();
+        int[][] marks = new int[n][3];
+
+        while (true) {
+            System.out.println("\nMenu:");
+            System.out.println("1. Add student marks");
+            System.out.println("2. Update student mark");
+            System.out.println("3. Get average for a subject");
+            System.out.println("4. Get average for a student");
+            System.out.println("5. Get total mark of a student");
+            System.out.println("6. Exit");
+            System.out.println("7. Display grades");
+
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+
+            int id, subject, sum;
+
+            switch (choice) {
+                case 1:
+                    id = scanner.nextInt() - 1;
+                    for (int i = 0; i < 3; i++) {
+                        marks[id][i] = scanner.nextInt();
+                    }
+                    break;
+
+                case 2:
+                    id = scanner.nextInt() - 1;
+                    subject = scanner.nextInt() - 1;
+                    marks[id][subject] = scanner.nextInt();
+                    break;
+
+                case 3:
+                    subject = scanner.nextInt() - 1;
+                    sum = 0;
+                    for (int i = 0; i < n; i++) {
+                        sum += marks[i][subject];
+                    }
+                    System.out.println(sum / (double) n);
+                    break;
+
+                case 4:
+                    id = scanner.nextInt() - 1;
+                    sum = 0;
+                    for (int i = 0; i < 3; i++) {
+                        sum += marks[id][i];
+                    }
+                    System.out.println(sum / 3.0);
+                    break;
+
+                case 5:
+                    id = scanner.nextInt() - 1;
+                    sum = 0;
+                    for (int i = 0; i < 3; i++) {
+                        sum += marks[id][i];
+                    }
+                    System.out.println(sum);
+                    break;
+
+                case 6:
+                    scanner.close();
+                    return;
+
+                case 7:
+                    System.out.println("Student\tSubject 1\tSubject 2\tSubject 3");
+                    for (int i = 0; i < n; i++) {
+                        System.out.print((i + 1) + "\t");
+                        for (int j = 0; j < 3; j++) {
+                            System.out.print(getGrade(marks[i][j]) + "\t\t");
+                        }
+                        System.out.println();
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    public static String getGrade(int score) {
+        if (score >= 90) return "Grade A";
+        else if (score >= 80) return "Grade B";
+        else if (score >= 70) return "Grade C";
+        else if (score >= 60) return "Grade D";
+        else return "Fail";
+    }
+}
